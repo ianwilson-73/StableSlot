@@ -1,16 +1,16 @@
-# ESP32 CPAP AutoSync
+# AIRSENSE 10/11 SD WIFI CARD BROWNOUT PREVENTION NOTES
 
-Automatically upload CPAP therapy data from your SD card to a network share or SleepHQ — **within minutes of taking your mask off.**
+Trying to make sense and prevent SD WIFI CARD issues in AS10/11 machines**
 
 * **Supports:** ResMed Series 10 and 11
-  - ℹ️ See note below for some AirSense 10 caveats
+  
 * **Hardware:** [SD WIFI PRO](https://www.fysetc.com/products/fysetc-upgrade-sd-wifi-pro-with-card-reader-module-run-wireless-by-esp32-chip-web-server-reader-uploader-3d-printer-parts) — an ESP32-powered SD card that physically inserts into your CPAP's SD card slot like a regular memory card
 
 ---
 
 ## ⚠️ **IMPORTANT COMPATIBILITY NOTICE**
 
-### **Power Compatibility & Known Hardware Limits**
+### ** Known Power Compatibility & Known Hardware Limits**
 
 > [!NOTE]
 > ℹ️ **AirSense 10 units:** These machines power-cycle the SD card slot every 60 seconds while actively blowing air. This causes the ESP32 card to constantly reboot during therapy, which will degrade the Web UI experience while you are sleeping. However, **this does not affect functionality** — once you stop therapy (take off the mask or stop the machine from blowing air), the card will boot up normally and complete the upload as expected.
