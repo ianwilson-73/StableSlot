@@ -24,13 +24,15 @@ Provided as-is.
 
 # AIRSENSE 10/11 SD WIFI CARD BROWNOUT PREVENTION NOTES
 
-Trying to make sense and prevent SD WIFI CARD issues in AS10/11 machines**
+Trying to make sense of and prevent SD WIFI CARD issues in AS10/11 machines**
 
 * **Relates to:** ResMed Series 10 and 11
   
 * **Hardware:** [SD WIFI PRO](https://www.fysetc.com/products/fysetc-upgrade-sd-wifi-pro-with-card-reader-module-run-wireless-by-esp32-chip-web-server-reader-uploader-3d-printer-parts) — an ESP32-powered SD card that physically inserts into your CPAP's SD card slot like a regular memory card
 
 * **Software:** [CPAP Auto-Sync](https://github.com/ilyakruchinin/CPAP-AutoSync) — ESP32 firmware that uploads CPAP data to SMB and SleepHQ services
+
+* May be relevant to other SD Wifi card solutions used with these CPAP machines
 ---
 
 ## ⚠️ **IMPORTANT COMPATIBILITY NOTICE**
