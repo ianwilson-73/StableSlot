@@ -71,6 +71,14 @@ In it's purchased form, StableSlot™ is a little unit that you simply plug into
 
 Full instructions will be supplied with each device, but it really is simple to use and set up.
 
+In addition, if you are having issues with another type of SD WIFI card, for example an EZ Share SD WIFI card as used in the Magic Uploader, we have made StableSlot™ so that it can be opened and the supplied SD WIFI card and software can be swapped out with the brand of SD WIFI card you are having issues with instead.
+
+That said, we really do like Ilya's CPAP AutoSync, especially as it inspired us to a solution. 
+
 ## Where do I get StableSlot™
 
 StableSlot™ is available for purchase from our [Square Store](https://)
+
+## Is it safe?
+
+StableSlot™ has been carefully produced and tested, and to the best of our knowledge and following that testing it appears safe and stable. It protects 
