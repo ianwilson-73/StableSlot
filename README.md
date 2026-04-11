@@ -20,82 +20,57 @@ and Apache License 2.0 section 6.
 ## Disclaimer
 Provided as-is, please see the seperate DISCLAIMER.md file.
 
-# AIRSENSE 10/11 SD WIFI CARD BROWNOUT PREVENTION NOTES
-
-Trying to make sense of and prevent SD WIFI CARD issues in AS10/11 machines**
+# StableSlot™ Note:
 
 * **Relates to:** ResMed Series 10 and 11
   
-* **Hardware:** [SD WIFI PRO](https://www.fysetc.com/products/fysetc-upgrade-sd-wifi-pro-with-card-reader-module-run-wireless-by-esp32-chip-web-server-reader-uploader-3d-printer-parts) — an ESP32-powered SD card that physically inserts into your CPAP's SD card slot like a regular memory card
+* **Hardware:** [SD WIFI PRO](https://www.fysetc.com/products/fysetc-upgrade-sd-wifi-pro-with-card-reader-module-run-wireless-by-esp32-chip-web-server-reader-uploader-3d-printer-parts) — an ESP32-powered SD card that physically inserts into your CPAP's SD card slot like a regular memory card - combined with
 
 * **Software:** [CPAP Auto-Sync](https://github.com/ilyakruchinin/CPAP-AutoSync) — ESP32 firmware that uploads CPAP data to SMB and SleepHQ services
+
+**OR**
+
+* **Alternate Hardware:** [SLEEPHQ Magic Uploader](https://shop.sleephq.com/products/magic-uploader-pro?srsltid=AfmBOoqpUE9kaXoKS9YDrxQcV_XHUk0DoiBh5K879EuiGGwW1DfBCF8M) — a proprietary upload solution that uses an EZ Share SD WIFI card and bespoke Raspberry Pi package.
+
+
 
 * May be relevant to other SD Wifi card solutions used with these CPAP machines
 ---
 
-## ⚠️ **IMPORTANT COMPATIBILITY NOTICE**
+## Explanation
 
-### ** Known Power Compatibility & Known Hardware Limits**
+SD WIFI cards require far more power than a simple, traditional, SD storage card. CPAP machines were built only with these simple storage only SD devices in mind, and so when it came to designing power supplies for the SD interface, the need for a little extra power perhaps being needed was never part of the design thought process.
 
-> [!NOTE]
-> ℹ️ **AirSense 10 units:** These machines power-cycle the SD card slot every 60 seconds while actively blowing air. This causes the ESP32 card to constantly reboot during therapy, which will degrade the Web UI experience while you are sleeping. However, **this does not affect functionality** — once you stop therapy (take off the mask or stop the machine from blowing air), the card will boot up normally and complete the upload as expected.
+**⚠️ Identifying Power Issues**
 
-> [!CAUTION]
-> ⚠️ **AirSense 11** ***(🔍 ONLY REF 39517, check back sticker! 🏷️)*** ➔ Most **REF 39517** units have severe power limitations on their SD card slot. If the ESP32 card does not receive enough power, it will continually reset. You may experience frequent WiFi disconnects, failed uploads, or an "**SD Card Error**" on your CPAP machine's screen.
+If your CPAP cannot provide enough power to the SD WIFI card, the SD card chip will reset itself. You might notice:
+ - The CPAP machine complains of SD Card Errors
+ - The device disappears from WiFi frequently
+ - Uploads fail midway or never start
+ - Any web interface is unreliable
 
-We are currently gathering statistics on which models work reliably. **If your model is not listed below, please report your experience to help us improve this data.**
+This happens when there is a surge in power requirement, for example when wifi transmissions take place, and the power supply cannot keep up. The voltage will drop, and once below a critical level, then trouble will begin.
 
-**👇👇👇 Click to expand:**
-<details>
-<summary>
-  <img src="./docs/logo/animated-arrow.svg?v3" alt="Point" width="25" style="vertical-align: middle;"/> 
-  <b style="font-size: 1.2em; vertical-align: middle;">Detailed Model Compatibility Statistics</b>
-</summary>
+## The Fix
 
-| Model | Made In | Platform | REF | Modem | Success rate | Notes |
-| :--- | :--- | :--- | :--- | :--- | :---: | :--- |
-| **AirSense 11** | Singapore | `R390-420/1` | 39480 | *(not specified / Europe)* | ✅ **100%** | Fully working |
-| **AirSense 11** | Singapore | `R390-451/1` | 39483 | *(not specified / Europe)* | ✅ **100%** | Fully working |
-| **AirSense 11** | Singapore | `R390-447/1` | 39517 | AIR11M1G22 | ❌ **35%** | Has known power delivery issues. Fails on most units. |
-| ↳ *(modded)* | — | — | ↳ 39517 🔧 | — | ⚠️ **65%** | *With 1uF SD Extender Mod and `BROWNOUT_DETECT=OFF`* |
-| **AirSense 11** | Singapore | `R390-447/1` | 39520 | AIR11M1G22 | ✅ **100%** | Fully working |
-| **AirSense 11** | Singapore | `R390-447/1` | 39523 | AIR11M1U | ✅ **100%** | Stable since v1.0i-beta1 (had issues prior) |
-| **AirSense 11** | Australia | `R390-453/1` | 39532 | AIR114GT | ✅ **100%** | Fully working |
-| **AirSense 10** | Australia | `R370-4102/1` | 37043 | AIR104G | ✅ **100%** | ℹ️ Fully working, see notes |
-| **AirSense 10** | Singapore | `R370-4201/1` | 37127 | *(not specified / Europe)* | ✅ **100%** | ℹ️ Fully working, see notes |
-| **AirSense 10** | Singapore | `R370-4207/1` | 37160 | AIR104GU | ✅ **100%** | ℹ️ Fully working, see notes |
-| **AirSense 10** | Australia | `R370-449/1` | 37437 | *(not specified / Australia)* | ✅ **100%** | ℹ️ Fully working, see notes |
+Following experimentation, I found that surges in power demand could be protected against by inserting a capacitor in place between two pins of the SD card. Various types and strengths of capacitor were tried in order to find a range within which stability could be guaranteed, but without over-stressing the power supply to the SD WIFI card.
 
-> 💡 **TIP: Hardware Modification Work in Progress**
-> 
-> One of our users is currently testing an **SD Card Extender mod** to add more capacitance to the power line. Initial tests show promising results (improving the R390-447/1 REF 39517 from 35% to 65% success rate). We are waiting for further testing with increased capacitance, which may fully resolve power issues for the problematic models. Investigations are also ongoing to see if a capacitor mod (or a newer AirSense firmware) might resolve the mid-therapy reboot issue on AirSense 10 units.
+## StableSlot™ Was Born
 
-</details>
+I was actually dealing with SD WIFI card (of another type) stability issues with a CPAP machine. While researching the cause and trying to find a solution, I happened to come across [CPAP AutoSync by Ilya Kruchinin](https://github.com/ilyakruchinin/CPAP-AutoSync). Ilya has produced an amazing piece of software that he got running on the ESP32 platform. Even more amazingly, it turns out that you can get an SD WIFI card with an ESP32 on board, and so Ilya has developed a piece of software that runs directly on this SD WIFI card, autonomously uploading the user's CPAP data to the cloud (SleepHQ) and SMB network storage devices.
 
----
+I was so impressed and inspired by Ilya's creation that I soon ordered one of the required [SD WIFI PRO Cards](https://www.fysetc.com/products/fysetc-upgrade-sd-wifi-pro-with-card-reader-module-run-wireless-by-esp32-chip-web-server-reader-uploader-3d-printer-parts) and I began to test out the software. This was when I started to run into the same stability issues I had seen with the other brand of SD WIFI card on testing. After careful testing and reading, I managed to develop the cure to the issues a number of users had by then been plagued with.
 
-<details>
-<summary><b>🔍 How to tell if your CPAP has power issues</b></summary>
+Following further development, an enclosure was produced that houses the electronics, SD WIFI card and that provides an SD card format connected to insert into the CPAP machine. I was thinking about producing these as a kit, but as I started to talk to people, it started to become apparent that not everybody feels comfortable messing around with tiny surface mounted circuit boards and 3D printing enclosures for their project.
 
-> **⚠️ Identifying Power Issues**
->
-> If your CPAP cannot provide enough power to the SD card, the ESP32 chip will reset itself. You might notice:
-> - The device disappears from WiFi frequently
-> - Uploads fail midway or never start
-> - The web interface is unreliable
->
-> You can confirm this is happening by looking at your logs:
-> 1. If `PERSISTENT_LOGS=true` is set, check the downloaded logs from the web interface.
-> 2. If the device cannot even stay online long enough to broadcast WiFi, pull the SD card and look for a file called `uploader_error.txt`.
->
-> Look for this specific warning:
-> ```text
-> [INFO] Reset reason: Brown-out reset (low voltage)
-> [ERROR] WARNING: System reset due to brown-out (insufficient power supply), this could be caused by:
-> [ERROR]  - the CPAP was disconnected from the power supply
-> [ERROR]  - the card was removed
-> [ERROR]  - the CPAP machine cannot provide enough power
-> ```
+I therefore went on to produce a device that could be bought by a user to help overcome any issues of their SD WIFI card instability. These devices can be purchased directly from us, and will be shipped out ready to use.
 
-> **Versions between v0.11.0 and v3.0i:** Added progressively more aggressive power optimizations (reduced TX power, 802.11b disabled, Bluetooth disabled, CPU throttled, WiFi modem-sleep enabled) specifically to improve AirSense 11 compatibility, which allowed some previously incompatible models to work. Firmware configurations like `BROWNOUT_DETECT=OFF` can also help on borderline machines.
-</details>
+## What is StableSlot™
+
+In it's purchased form, StableSlot™ is a little unit that you simply plug into your CPAP machine's SD card slot. The unit comes ready prepared, and has the latest version of CPAP AutoSync already on it and ready to go. All the user needs to do is plug the device in, connect to it on any web browser, and set up their credentials and WIFI details. The unit will then restart, join your normal WIFI network, and autonomously upload the user's CPAP data as they set up at the end of each therapy session.
+
+Full instructions will be supplied with each device, but it really is simple to use and set up.
+
+## Where do I get StableSlot™
+
+StableSlot™ is available for purchase from our [Square Store](https://)
