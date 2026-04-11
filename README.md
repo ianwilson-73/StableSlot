@@ -20,7 +20,7 @@ and Apache License 2.0 section 6.
 ## Disclaimer
 Provided as-is, please see the seperate DISCLAIMER.md file.
 
-# StableSlot™ Note:
+# StableSlot™ Notes:
 
 * **Relates to:** ResMed Series 10 and 11
   
@@ -84,5 +84,17 @@ StableSlot™ is available for purchase from our [Square Store](https://)
 StableSlot™ has been carefully produced and tested, and to the best of our knowledge and following that testing it appears safe and stable. It protects against SD WIFI cards resetting or writing corrupt data, while not appearing to strain the power supply to the card. That said, we have a clear disclaimer you should [read here](https://github.com/ianwilson-73/StableSlot/blob/main/DISCLAIMER.md)
 
 
+Copyright 2026 Ian Wilson
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.    
 
