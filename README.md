@@ -10,17 +10,15 @@ Commercial licenses or partnerships are available on request.
 ## Hardware Notes
 Reference designs are open. Production variants may remain proprietary.
 
-## Repo Structure
-/open-core
-/hardware-ref
-/production (private)
-/cloud (private)
-
 ## Trademarks
-Not licensed.
+
+StableSlot™ is the project name and brand of Ian Wilson.
+The source code is licensed under Apache-2.0, but the project name,
+logo, and branding are not licensed except as allowed under trademark law
+and Apache License 2.0 section 6.
 
 ## Disclaimer
-Provided as-is.
+Provided as-is, please see the seperate DISCLAIMER.md file.
 
 # AIRSENSE 10/11 SD WIFI CARD BROWNOUT PREVENTION NOTES
 
